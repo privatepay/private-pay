@@ -7,7 +7,7 @@ import type { InferInput, SimpleError } from '@vinejs/vine/types'
 export type ParamValue = string | number | bigint | boolean
 
 export interface Registry {
-  'auth.new_account.store': {
+  'auth.account.create_account': {
     methods: ["POST"]
     pattern: '/api/v1/auth/signup'
     types: {
@@ -15,11 +15,11 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: ExtractQuery<InferInput<(typeof import('#validators/user').signupValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/new_account_controller').default['store']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/new_account_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/account_controller').default['createAccount']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/account_controller').default['createAccount']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
-  'auth.access_token.store': {
+  'auth.access_token.create_token': {
     methods: ["POST"]
     pattern: '/api/v1/auth/login'
     types: {
@@ -27,11 +27,11 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: ExtractQuery<InferInput<(typeof import('#validators/user').loginValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/access_token_controller').default['store']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/access_token_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/access_token_controller').default['createToken']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/access_token_controller').default['createToken']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
-  'auth.access_token.destroy': {
+  'auth.access_token.destroy_token': {
     methods: ["POST"]
     pattern: '/api/v1/auth/logout'
     types: {
@@ -39,11 +39,23 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/access_token_controller').default['destroy']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/access_token_controller').default['destroy']>>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/access_token_controller').default['destroyToken']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/access_token_controller').default['destroyToken']>>>
     }
   }
-  'profile.profile.show': {
+  'auth.account.edit_account': {
+    methods: ["POST"]
+    pattern: '/api/v1/auth/edit'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/user').editAccountValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/user').editAccountValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/account_controller').default['editAccount']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/account_controller').default['editAccount']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'profile.profile.get_user_profile': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/account/profile'
     types: {
@@ -51,8 +63,8 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['show']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['show']>>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['getUserProfile']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['getUserProfile']>>>
     }
   }
 }

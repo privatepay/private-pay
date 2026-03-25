@@ -6,29 +6,35 @@ import type { ApiDefinition } from './tree.d.ts'
 const placeholder: any = {}
 
 const routes = {
-  'auth.new_account.store': {
+  'auth.account.create_account': {
     methods: ["POST"],
     pattern: '/api/v1/auth/signup',
     tokens: [{"old":"/api/v1/auth/signup","type":0,"val":"api","end":""},{"old":"/api/v1/auth/signup","type":0,"val":"v1","end":""},{"old":"/api/v1/auth/signup","type":0,"val":"auth","end":""},{"old":"/api/v1/auth/signup","type":0,"val":"signup","end":""}],
-    types: placeholder as Registry['auth.new_account.store']['types'],
+    types: placeholder as Registry['auth.account.create_account']['types'],
   },
-  'auth.access_token.store': {
+  'auth.access_token.create_token': {
     methods: ["POST"],
     pattern: '/api/v1/auth/login',
     tokens: [{"old":"/api/v1/auth/login","type":0,"val":"api","end":""},{"old":"/api/v1/auth/login","type":0,"val":"v1","end":""},{"old":"/api/v1/auth/login","type":0,"val":"auth","end":""},{"old":"/api/v1/auth/login","type":0,"val":"login","end":""}],
-    types: placeholder as Registry['auth.access_token.store']['types'],
+    types: placeholder as Registry['auth.access_token.create_token']['types'],
   },
-  'auth.access_token.destroy': {
+  'auth.access_token.destroy_token': {
     methods: ["POST"],
     pattern: '/api/v1/auth/logout',
     tokens: [{"old":"/api/v1/auth/logout","type":0,"val":"api","end":""},{"old":"/api/v1/auth/logout","type":0,"val":"v1","end":""},{"old":"/api/v1/auth/logout","type":0,"val":"auth","end":""},{"old":"/api/v1/auth/logout","type":0,"val":"logout","end":""}],
-    types: placeholder as Registry['auth.access_token.destroy']['types'],
+    types: placeholder as Registry['auth.access_token.destroy_token']['types'],
   },
-  'profile.profile.show': {
+  'auth.account.edit_account': {
+    methods: ["POST"],
+    pattern: '/api/v1/auth/edit',
+    tokens: [{"old":"/api/v1/auth/edit","type":0,"val":"api","end":""},{"old":"/api/v1/auth/edit","type":0,"val":"v1","end":""},{"old":"/api/v1/auth/edit","type":0,"val":"auth","end":""},{"old":"/api/v1/auth/edit","type":0,"val":"edit","end":""}],
+    types: placeholder as Registry['auth.account.edit_account']['types'],
+  },
+  'profile.profile.get_user_profile': {
     methods: ["GET","HEAD"],
     pattern: '/api/v1/account/profile',
     tokens: [{"old":"/api/v1/account/profile","type":0,"val":"api","end":""},{"old":"/api/v1/account/profile","type":0,"val":"v1","end":""},{"old":"/api/v1/account/profile","type":0,"val":"account","end":""},{"old":"/api/v1/account/profile","type":0,"val":"profile","end":""}],
-    types: placeholder as Registry['profile.profile.show']['types'],
+    types: placeholder as Registry['profile.profile.get_user_profile']['types'],
   },
 } as const satisfies Record<string, AdonisEndpoint>
 
