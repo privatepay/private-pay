@@ -5,6 +5,10 @@
 
 export const controllers = {
   AccessToken: () => import('#controllers/access_token_controller'),
+<<<<<<< Updated upstream
   NewAccount: () => import('#controllers/new_account_controller'),
+=======
+  Account: () => import('#controllers/account_controller'),
+>>>>>>> Stashed changes
   Profile: () => import('#controllers/profile_controller'),
 }
