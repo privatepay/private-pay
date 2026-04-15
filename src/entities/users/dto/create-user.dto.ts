@@ -1,4 +1,10 @@
-import { IsEmail, IsEnum, IsHash, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsString,
+  MinLength,
+} from 'class-validator';
 import { IDocumentType } from 'src/types/user.interface';
 
 export class CreateUserDto {
@@ -22,7 +28,8 @@ export class CreateUserDto {
   @IsNotEmpty()
   email: string;
 
-  @IsHash('sha256')
+  @IsString()
   @IsNotEmpty()
+  @MinLength(6)
   password: string;
 }

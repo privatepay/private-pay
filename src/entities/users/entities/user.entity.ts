@@ -1,46 +1,47 @@
-import { Type } from 'class-transformer';
 import {
-  IsDate,
-  IsEmail,
-  IsEnum,
-  IsHash,
-  IsNotEmpty,
-  IsString,
-} from 'class-validator';
-import { IDocumentType } from 'src/types/user.interface';
+  BeforeInsert,
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { IDocumentType } from '@/types/user.interface';
+import * as bcrypt from 'bcrypt';
 
+@Entity('users')
 export class User {
-  @IsString()
-  @IsNotEmpty()
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
   firstName: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @Column()
   lastName: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @Column({ unique: true })
   document: string;
 
-  @IsEnum(IDocumentType)
-  @IsNotEmpty()
+  @Column({ type: 'enum', enum: IDocumentType })
   documentType: IDocumentType;
 
-  @IsEmail()
-  @IsNotEmpty()
+  @Column({ unique: true })
   email: string;
 
-  @IsHash('sha256')
-  @IsNotEmpty()
+  @Column({ select: false })
   password: string;
 
-  @Type(() => Date)
-  @IsDate()
-  @IsNotEmpty()
+  @CreateDateColumn()
   createdAt: Date;
 
-  @Type(() => Date)
-  @IsDate()
-  @IsNotEmpty()
+  @UpdateDateColumn()
   updatedAt: Date;
+
+  @BeforeInsert()
+  async hashPassword() {
+    if (this.password) {
+      this.password = await bcrypt.hash(this.password, 10);
+    }
+  }
 }
