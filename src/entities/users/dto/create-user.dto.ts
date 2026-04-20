@@ -1,3 +1,4 @@
+import { Role } from '@/types/auth.interface';
 import {
   IsEmail,
   IsEnum,
@@ -32,4 +33,8 @@ export class CreateUserDto {
   @IsNotEmpty()
   @MinLength(6)
   password: string;
+
+  @IsNotEmpty()
+  @IsEnum(Role)
+  role: Role;
 }

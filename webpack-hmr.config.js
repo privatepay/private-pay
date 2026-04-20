@@ -1,14 +1,8 @@
-import nodeExternals from 'webpack-node-externals';
-import { RunScriptWebpackPlugin } from 'run-script-webpack-plugin';
-import { Configuration } from 'webpack';
+const nodeExternals = require('webpack-node-externals');
+const { RunScriptWebpackPlugin } = require('run-script-webpack-plugin');
 
-export default function (
-  options: Configuration,
-  webpack: typeof import('webpack'),
-): Configuration {
-  const entry = Array.isArray(options.entry)
-    ? options.entry
-    : [options.entry as string];
+module.exports = function (options, webpack) {
+  const entry = Array.isArray(options.entry) ? options.entry : [options.entry];
 
   return {
     ...options,
@@ -25,9 +19,9 @@ export default function (
         paths: [/\.js$/, /\.d\.ts$/],
       }),
       new RunScriptWebpackPlugin({
-        name: options.output?.filename as string,
+        name: options.output?.filename,
         autoRestart: false,
       }),
     ],
   };
-}
+};
