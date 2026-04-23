@@ -1,0 +1,20 @@
+{
+  "users": {
+    "USER_ALREADY_EXISTS": "Usuário com este e-mail ou documento já existe",
+    "USER_NOT_FOUND": "Usuário com id {id} não encontrado",
+    "CREATE_SUCCESS": "Usuário cadastrado com sucesso!",
+    "UPDATE_SUCCESS": "Usuário atualizado com sucesso!",
+    "DELETE_SUCCESS": "Usuário removido com sucesso!"
+  },
+  "auth": {
+    "INVALID_CREDENTIALS": "Credenciais inválidas",
+    "USER_NOT_FOUND": "Usuário não encontrado",
+    "LOGIN_SUCCESS": "Login realizado com sucesso!",
+    "LOGOUT_SUCCESS": "Logout realizado com sucesso!"
+  },
+  "language": {
+    "INVALID_LANGUAGE": "Invalid language",
+    "LANGUAGE_CHANGED": "Language changed successfully!",
+    "LANGUAGE_NOT_FOUND": "Linguagem não encontrada!"
+  }
+}

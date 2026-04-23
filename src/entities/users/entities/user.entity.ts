@@ -32,6 +32,9 @@ export class User {
   @Column({ select: false })
   password: string;
 
+  @Column({ default: 'pt-BR' })
+  language: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

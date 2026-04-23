@@ -41,4 +41,9 @@ export class UsersController {
   remove(@Param('id') id: string) {
     return this.usersService.remove(id);
   }
+
+  @Patch(':id/language')
+  changeLanguage(@Param('id') id: string, @Body('language') language: string) {
+    return this.usersService.changeLanguage(id, language);
+  }
 }
