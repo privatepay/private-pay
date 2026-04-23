@@ -6,6 +6,7 @@ export interface ISignIn {
 export interface IProfile {
   sub: string;
   email: string;
+  language: string;
   iat: number;
   exp: number;
 }

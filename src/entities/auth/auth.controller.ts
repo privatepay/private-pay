@@ -11,10 +11,14 @@ import {
 import { AuthService } from './auth.service';
 import type { IProfile, ISignIn } from '@/types/auth.interface';
 import { Public } from './auth.guard';
+import { I18nService } from 'nestjs-i18n';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly i18n: I18nService,
+  ) {}
 
   @Public()
   @HttpCode(HttpStatus.OK)
@@ -29,13 +33,13 @@ export class AuthController {
       maxAge: 1000 * 60 * 60 * 2,
     });
 
-    return { message: 'Logged in successfully' };
+    return { message: this.i18n.t('index.auth.LOGIN_SUCCESS') };
   }
 
   @Post('logout')
-  logout(@Res({ passthrough: true }) res: any) {
-    res.clearCookie('access_token');
-    return { message: 'Logged out successfully' };
+  logout(@Request() req: any, @Res({ passthrough: true }) res: any) {
+    const message = this.authService.logout(res);
+    return { message: message };
   }
 
   @Get('profile')
