@@ -29,6 +29,9 @@ export class User {
   @Column({ unique: true })
   email: string;
 
+  @Column({ type: 'text', nullable: true })
+  codename?: string | null;
+
   @Column({ select: false })
   password: string;
 

@@ -61,6 +61,7 @@ export class UsersService {
         'password',
         'firstName',
         'lastName',
+        'codename',
         'document',
         'documentType',
         'language',
