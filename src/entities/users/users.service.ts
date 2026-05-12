@@ -122,3 +122,4 @@ export class UsersService {
     return { message: this.i18n.t('index.language.LANGUAGE_CHANGED') };
   }
 }
+
