@@ -63,6 +63,7 @@ export class UsersService {
         'lastName',
         'document',
         'documentType',
+        'role',
         'language',
         'createdAt',
         'updatedAt',

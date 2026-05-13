@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { IDocumentType } from '@/types/user.interface';
 import * as bcrypt from 'bcrypt';
+import { Role } from '@/types/auth.interface';
 
 @Entity('users')
 export class User {
@@ -31,6 +32,9 @@ export class User {
 
   @Column({ select: false })
   password: string;
+
+  @Column({ type: 'enum', enum: Role, default: Role.USER })
+  role: Role;
 
   @Column({ default: 'pt-BR' })
   language: string;
