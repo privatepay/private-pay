@@ -12,6 +12,7 @@ export interface IProfile {
   firstName: string;
   lastName: string;
   role: Role;
+  codename: string;
 }
 
 export enum Role {

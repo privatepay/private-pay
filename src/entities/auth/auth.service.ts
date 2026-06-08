@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { ISignIn } from '@/types/auth.interface';
+import { IProfile, ISignIn } from '@/types/auth.interface';
 import * as bcrypt from 'bcrypt';
 import { I18nService } from 'nestjs-i18n';
 
@@ -37,12 +37,28 @@ export class AuthService {
       firstName: user.firstName,
       lastName: user.lastName,
       role: user.role,
+      codename: user.codename,
     };
     return {
       access_token: await this.jwtService.signAsync(payload),
       message: this.i18n.t('index.auth.LOGIN_SUCCESS'),
     };
   }
+  async getProfile(id: string, jwtPayload: IProfile): Promise<IProfile> {
+    const user = await this.usersService.findOne(id);
+    return {
+      sub: jwtPayload.sub,
+      iat: jwtPayload.iat,
+      exp: jwtPayload.exp,
+      email: user.email,
+      language: user.language,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      role: user.role,
+      codename: user.codename,
+    };
+  }
+
   logout(res: any) {
     const message = this.i18n.t('index.auth.LOGOUT_SUCCESS');
     res.clearCookie('access_token');
