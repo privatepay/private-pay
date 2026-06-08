@@ -9,6 +9,10 @@ export interface IProfile {
   language: string;
   iat: number;
   exp: number;
+  firstName: string;
+  lastName: string;
+  role: Role;
+  codename: string;
 }
 
 export enum Role {

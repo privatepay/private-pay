@@ -10,6 +10,12 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { I18nService } from 'nestjs-i18n';
+import {
+  uniqueNamesGenerator,
+  adjectives,
+  colors,
+  animals,
+} from 'unique-names-generator';
 
 @Injectable()
 export class UsersService {
@@ -18,6 +24,18 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
     private readonly i18n: I18nService,
   ) {}
+
+  private async generateUniqueCodename(): Promise<string> {
+    let codename: string;
+    do {
+      codename = uniqueNamesGenerator({
+        dictionaries: [adjectives, colors, animals],
+        separator: '-',
+        style: 'lowerCase',
+      });
+    } while (await this.userRepository.findOne({ where: { codename } }));
+    return codename;
+  }
 
   async create(createUserDto: CreateUserDto) {
     const existingUser = await this.userRepository.findOne({
@@ -33,7 +51,8 @@ export class UsersService {
       );
     }
 
-    const user = this.userRepository.create(createUserDto);
+    const codename = await this.generateUniqueCodename();
+    const user = this.userRepository.create({ ...createUserDto, codename });
     await this.userRepository.save(user);
     return { message: this.i18n.t('index.users.CREATE_SUCCESS'), data: user };
   }
@@ -63,6 +82,8 @@ export class UsersService {
         'lastName',
         'document',
         'documentType',
+        'codename',
+        'role',
         'language',
         'createdAt',
         'updatedAt',
